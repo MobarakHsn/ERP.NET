@@ -232,6 +232,16 @@
     <Property Name="description" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
     <Property Name="activity_time" Type="DateTime" Precision="3" />
   </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
   <EntityType Name="User">
     <Key>
       <PropertyRef Name="id" />
@@ -338,7 +348,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <EntityContainer Name="ERPEntities1" annotation:LazyLoadingEnabled="true">
+  <EntityContainer Name="ERPEntities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="Assets" EntityType="Self.Asset" />
     <EntitySet Name="Banks" EntityType="Self.Bank" />
     <EntitySet Name="Customer_emails" EntityType="Self.Customer_emails" />
@@ -359,6 +369,7 @@
     <EntitySet Name="ProductManager_Activities" EntityType="Self.ProductManager_Activities" />
     <EntitySet Name="Products" EntityType="Self.Product" />
     <EntitySet Name="Sales_Activities" EntityType="Self.Sales_Activities" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
     <EntitySet Name="Users" EntityType="Self.User" />
     <EntitySet Name="Warehouses" EntityType="Self.Warehouse" />
     <AssociationSet Name="FK_Orders_Customers" Association="Self.FK_Orders_Customers">

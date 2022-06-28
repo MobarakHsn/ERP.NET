@@ -4,12 +4,12 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace ERP.Controllers.Common
+namespace ERP.Controllers.Product_Controller
 {
-    public class LoginController : Controller
+    public class ProductCommonController : Controller
     {
-        // GET: Login
-        public ActionResult Login()
+        // GET: ProductCommon
+        public ActionResult Index()
         {
             return View();
         }
