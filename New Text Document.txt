@@ -3,4 +3,4 @@ create Finanace manager branch
 Controllers created
 admin_hr
 admin_hr branch created.
-create sales and marketting manager brach
+create sales and marketting manager branch
