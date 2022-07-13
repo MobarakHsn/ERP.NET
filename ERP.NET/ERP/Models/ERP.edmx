@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="ERPModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="ERPModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Assets">
           <Key>
             <PropertyRef Name="id" />
@@ -41,8 +41,10 @@
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="name" Type="varchar" MaxLength="50" />
+          <Property Name="email" Type="varchar" MaxLength="50" />
           <Property Name="phone" Type="varchar" MaxLength="50" />
-          <Property Name="delivery_point" Type="varchar" MaxLength="50" />
+          <Property Name="delivery_point" Type="varchar" MaxLength="100" />
+          <Property Name="first_purchase" Type="date" />
           <Property Name="type" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Employees">
@@ -50,6 +52,7 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="employee_id" Type="int" />
           <Property Name="employee_name" Type="varchar" MaxLength="50" />
           <Property Name="gender" Type="varchar" MaxLength="50" />
           <Property Name="supervisor" Type="varchar" MaxLength="50" />
@@ -139,7 +142,7 @@
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="type" Type="varchar" MaxLength="50" />
           <Property Name="request_description" Type="varchar" MaxLength="50" />
           <Property Name="start_time" Type="datetime" />
@@ -173,6 +176,7 @@
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="customer_id" Type="int" Nullable="false" />
           <Property Name="order_description" Type="varchar" MaxLength="1000" />
+          <Property Name="status" Type="varchar" MaxLength="50" />
           <Property Name="order_made" Type="datetime" />
           <Property Name="total_amount" Type="int" />
           <Property Name="delivered_on" Type="datetime" />
@@ -206,7 +210,7 @@
           <Property Name="product_name" Type="varchar" MaxLength="50" />
           <Property Name="status_sale" Type="varchar" MaxLength="50" />
           <Property Name="status_purchase" Type="varchar" MaxLength="50" />
-          <Property Name="product_description" Type="varchar" MaxLength="50" />
+          <Property Name="product_description" Type="varchar" MaxLength="500" />
           <Property Name="warehouse_name" Type="varchar" MaxLength="50" />
           <Property Name="stock" Type="float" />
           <Property Name="nature" Type="varchar" MaxLength="50" />
@@ -265,10 +269,31 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="type" Type="varchar" MaxLength="50" />
+          <Property Name="name" Type="varchar" MaxLength="50" />
           <Property Name="description" Type="varchar" MaxLength="500" />
-          <Property Name="activity_time" Type="datetime" />
+          <Property Name="address" Type="varchar" MaxLength="500" />
+          <Property Name="zip_code" Type="int" />
+          <Property Name="city" Type="varchar" MaxLength="50" />
+          <Property Name="country" Type="varchar" MaxLength="50" />
+          <Property Name="phone" Type="varchar" MaxLength="50" />
+          <Property Name="quantity" Type="float" />
+          <Property Name="remaining_quantity" Type="float" />
+          <Property Name="status" Type="varchar" MaxLength="50" />
+          <Property Name="date_added" Type="varchar" MaxLength="50" />
+          <Property Name="date_updated" Type="varchar" MaxLength="50" />
         </EntityType>
+        <Association Name="FK_Employees_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Employees" Type="Self.Employees" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Employees">
+              <PropertyRef Name="employee_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Finance_import_histories_Users">
           <End Role="Users" Type="Self.Users" Multiplicity="1" />
           <End Role="Finance_import_histories" Type="Self.Finance_import_histories" Multiplicity="0..1" />
@@ -365,6 +390,10 @@
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Warehouses" EntityType="Self.Warehouses" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Employees_Users" Association="Self.FK_Employees_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Employees" EntitySet="Employees" />
+          </AssociationSet>
           <AssociationSet Name="FK_Finance_import_histories_Users" Association="Self.FK_Finance_import_histories_Users">
             <End Role="Users" EntitySet="Users" />
             <End Role="Finance_import_histories" EntitySet="Finance_import_histories" />
@@ -390,8 +419,7 @@
             <End Role="Orders" EntitySet="Orders" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ERPModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -431,8 +459,10 @@
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="delivery_point" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="delivery_point" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="first_purchase" Type="DateTime" Precision="0" />
           <Property Name="type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Orders" Relationship="Self.FK_Orders_Customers" FromRole="Customers" ToRole="Orders" />
         </EntityType>
@@ -441,6 +471,7 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="employee_id" Type="Int32" />
           <Property Name="employee_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="gender" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="supervisor" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
@@ -452,6 +483,7 @@
           <Property Name="end_time" Type="Time" Precision="7" />
           <Property Name="hours_worked" Type="Int32" />
           <Property Name="employement_start_date" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Employees_Users" FromRole="Employees" ToRole="Users" />
         </EntityType>
         <EntityType Name="Expens">
           <Key>
@@ -569,6 +601,7 @@
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="customer_id" Type="Int32" Nullable="false" />
           <Property Name="order_description" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="order_made" Type="DateTime" Precision="3" />
           <Property Name="total_amount" Type="Int32" />
           <Property Name="delivered_on" Type="DateTime" Precision="3" />
@@ -603,7 +636,7 @@
           <Property Name="product_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="status_sale" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="status_purchase" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="product_description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="product_description" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="warehouse_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="stock" Type="Double" />
           <Property Name="nature" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
@@ -656,6 +689,7 @@
           <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="organization_id" Type="Int32" />
           <Property Name="user_status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Employees" Relationship="Self.FK_Employees_Users" FromRole="Users" ToRole="Employees" />
           <NavigationProperty Name="Finance_import_histories" Relationship="Self.FK_Finance_import_histories_Users" FromRole="Users" ToRole="Finance_import_histories" />
           <NavigationProperty Name="Finance_payment_histories" Relationship="Self.FK_Finance_payment_histories_Users" FromRole="Users" ToRole="Finance_payment_histories" />
           <NavigationProperty Name="Invoices" Relationship="Self.FK_Invoices_Users" FromRole="Users" ToRole="Invoices" />
@@ -667,9 +701,18 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="description" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="activity_time" Type="DateTime" Precision="3" />
+          <Property Name="address" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="zip_code" Type="Int32" />
+          <Property Name="city" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="country" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="quantity" Type="Double" />
+          <Property Name="remaining_quantity" Type="Double" />
+          <Property Name="status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="date_added" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="date_updated" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="FK_Orders_Customers">
           <End Role="Customers" Type="Self.Customer" Multiplicity="1" />
@@ -680,6 +723,18 @@
             </Principal>
             <Dependent Role="Orders">
               <PropertyRef Name="customer_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employees_Users">
+          <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Employees" Type="Self.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Employees">
+              <PropertyRef Name="employee_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -771,6 +826,10 @@
             <End Role="Customers" EntitySet="Customers" />
             <End Role="Orders" EntitySet="Orders" />
           </AssociationSet>
+          <AssociationSet Name="FK_Employees_Users" Association="Self.FK_Employees_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Employees" EntitySet="Employees" />
+          </AssociationSet>
           <AssociationSet Name="FK_Finance_import_histories_Users" Association="Self.FK_Finance_import_histories_Users">
             <End Role="Users" EntitySet="Users" />
             <End Role="Finance_import_histories" EntitySet="Finance_import_histories" />
@@ -836,8 +895,10 @@
               <MappingFragment StoreEntitySet="Customers">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="email" ColumnName="email" />
                 <ScalarProperty Name="phone" ColumnName="phone" />
                 <ScalarProperty Name="delivery_point" ColumnName="delivery_point" />
+                <ScalarProperty Name="first_purchase" ColumnName="first_purchase" />
                 <ScalarProperty Name="type" ColumnName="type" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -846,6 +907,7 @@
             <EntityTypeMapping TypeName="ERPModel.Employee">
               <MappingFragment StoreEntitySet="Employees">
                 <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="employee_id" ColumnName="employee_id" />
                 <ScalarProperty Name="employee_name" ColumnName="employee_name" />
                 <ScalarProperty Name="gender" ColumnName="gender" />
                 <ScalarProperty Name="supervisor" ColumnName="supervisor" />
@@ -980,6 +1042,7 @@
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="customer_id" ColumnName="customer_id" />
                 <ScalarProperty Name="order_description" ColumnName="order_description" />
+                <ScalarProperty Name="status" ColumnName="status" />
                 <ScalarProperty Name="order_made" ColumnName="order_made" />
                 <ScalarProperty Name="total_amount" ColumnName="total_amount" />
                 <ScalarProperty Name="delivered_on" ColumnName="delivered_on" />
@@ -1079,9 +1142,18 @@
             <EntityTypeMapping TypeName="ERPModel.Warehouse">
               <MappingFragment StoreEntitySet="Warehouses">
                 <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="description" ColumnName="description" />
-                <ScalarProperty Name="activity_time" ColumnName="activity_time" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="zip_code" ColumnName="zip_code" />
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="country" ColumnName="country" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="quantity" ColumnName="quantity" />
+                <ScalarProperty Name="remaining_quantity" ColumnName="remaining_quantity" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="date_added" ColumnName="date_added" />
+                <ScalarProperty Name="date_updated" ColumnName="date_updated" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

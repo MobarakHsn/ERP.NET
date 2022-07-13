@@ -36,8 +36,10 @@
     </Key>
     <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="delivery_point" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="delivery_point" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="first_purchase" Type="DateTime" Precision="0" />
     <Property Name="type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="Orders" Relationship="Self.FK_Orders_Customers" FromRole="Customers" ToRole="Orders" />
   </EntityType>
@@ -46,6 +48,7 @@
       <PropertyRef Name="id" />
     </Key>
     <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="employee_id" Type="Int32" />
     <Property Name="employee_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="gender" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="supervisor" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
@@ -57,6 +60,7 @@
     <Property Name="end_time" Type="Time" Precision="7" />
     <Property Name="hours_worked" Type="Int32" />
     <Property Name="employement_start_date" Type="DateTime" Precision="0" />
+    <NavigationProperty Name="User" Relationship="Self.FK_Employees_Users" FromRole="Employees" ToRole="Users" />
   </EntityType>
   <EntityType Name="Expens">
     <Key>
@@ -174,6 +178,7 @@
     <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="customer_id" Type="Int32" Nullable="false" />
     <Property Name="order_description" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+    <Property Name="status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="order_made" Type="DateTime" Precision="3" />
     <Property Name="total_amount" Type="Int32" />
     <Property Name="delivered_on" Type="DateTime" Precision="3" />
@@ -208,7 +213,7 @@
     <Property Name="product_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="status_sale" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="status_purchase" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="product_description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="product_description" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
     <Property Name="warehouse_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="stock" Type="Double" />
     <Property Name="nature" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
@@ -261,6 +266,7 @@
     <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="organization_id" Type="Int32" />
     <Property Name="user_status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Employees" Relationship="Self.FK_Employees_Users" FromRole="Users" ToRole="Employees" />
     <NavigationProperty Name="Finance_import_histories" Relationship="Self.FK_Finance_import_histories_Users" FromRole="Users" ToRole="Finance_import_histories" />
     <NavigationProperty Name="Finance_payment_histories" Relationship="Self.FK_Finance_payment_histories_Users" FromRole="Users" ToRole="Finance_payment_histories" />
     <NavigationProperty Name="Invoices" Relationship="Self.FK_Invoices_Users" FromRole="Users" ToRole="Invoices" />
@@ -272,9 +278,18 @@
       <PropertyRef Name="id" />
     </Key>
     <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="description" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-    <Property Name="activity_time" Type="DateTime" Precision="3" />
+    <Property Name="address" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="zip_code" Type="Int32" />
+    <Property Name="city" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="country" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="quantity" Type="Double" />
+    <Property Name="remaining_quantity" Type="Double" />
+    <Property Name="status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="date_added" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="date_updated" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
   </EntityType>
   <Association Name="FK_Orders_Customers">
     <End Role="Customers" Type="Self.Customer" Multiplicity="1" />
@@ -285,6 +300,18 @@
       </Principal>
       <Dependent Role="Orders">
         <PropertyRef Name="customer_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Employees_Users">
+    <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+    <End Role="Employees" Type="Self.Employee" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Employees">
+        <PropertyRef Name="employee_id" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -375,6 +402,10 @@
     <AssociationSet Name="FK_Orders_Customers" Association="Self.FK_Orders_Customers">
       <End Role="Customers" EntitySet="Customers" />
       <End Role="Orders" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Employees_Users" Association="Self.FK_Employees_Users">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Employees" EntitySet="Employees" />
     </AssociationSet>
     <AssociationSet Name="FK_Finance_import_histories_Users" Association="Self.FK_Finance_import_histories_Users">
       <End Role="Users" EntitySet="Users" />

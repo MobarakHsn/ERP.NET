@@ -9,7 +9,7 @@
     <ProductVersion>
     </ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{026E6F6C-A26A-4457-AA3B-ABE9AAFBEA49}</ProjectGuid>
+    <ProjectGuid>{F386F59B-700C-47A4-B7DA-57A2F49B830C}</ProjectGuid>
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -19,7 +19,7 @@
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
     <Use64BitIISExpress />
-    <IISExpressSSLPort>44325</IISExpressSSLPort>
+    <IISExpressSSLPort>44358</IISExpressSSLPort>
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
@@ -53,6 +53,9 @@
       <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -108,9 +111,6 @@
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="WebGrease">
       <Private>True</Private>
       <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
@@ -130,7 +130,17 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\Product_Controller\ProductCommonController.cs" />
+    <Compile Include="Controllers\ProductManager\ProductCRUDController.cs" />
+    <Compile Include="Controllers\ProductManager\ProductHomeController.cs" />
+    <Compile Include="Controllers\ProductManager\ProductIssueController.cs" />
+    <Compile Include="Controllers\ProductManager\ProductLeaveController.cs" />
+    <Compile Include="Controllers\ProductManager\ProductManagerProfileController.cs" />
+    <Compile Include="Controllers\ProductManager\ProductStockController.cs" />
+    <Compile Include="Controllers\ProductManager\ProductTransferController.cs" />
+    <Compile Include="Controllers\ProductManager\ProductVisualizationController.cs" />
+    <Compile Include="Controllers\ProductManager\WareHouseCRUDController.cs" />
+    <Compile Include="Form Models\Transfer.cs" />
+    <Compile Include="Form Models\VisProduct.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -267,13 +277,24 @@
       <DependentUpon>Web.config</DependentUpon>
     </Content>
     <Content Include="Views\Web.config" />
-    <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\Shared\Error.cshtml" />
-    <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\ProductCommon\Index.cshtml" />
+    <Content Include="Views\ProductHome\Home.cshtml" />
+    <Content Include="Views\ProductCRUD\Create.cshtml" />
+    <Content Include="Views\ProductCRUD\List.cshtml" />
+    <Content Include="Views\ProductCRUD\Edit.cshtml" />
+    <Content Include="Views\ProductCRUD\Delete.cshtml" />
+    <Content Include="Views\ProductCRUD\Faulty.cshtml" />
+    <Content Include="Views\ProductStock\Index.cshtml" />
+    <Content Include="Views\ProductTransfer\Index.cshtml" />
+    <Content Include="Views\WareHouseCRUD\Create.cshtml" />
+    <Content Include="Views\WareHouseCRUD\List.cshtml" />
+    <Content Include="Views\WareHouseCRUD\Edit.cshtml" />
+    <Content Include="Views\ProductLeave\Create.cshtml" />
+    <Content Include="Views\ProductLeave\MyLeave.cshtml" />
+    <Content Include="Views\ProductIssue\Create.cshtml" />
+    <Content Include="Views\ProductIssue\MyIssues.cshtml" />
+    <Content Include="Views\ProductManagerProfile\MyProfile.cshtml" />
+    <Content Include="Views\ProductManagerProfile\EditProfile.cshtml" />
+    <Content Include="Views\ProductVisualization\PieChart.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -310,9 +331,9 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>53838</DevelopmentServerPort>
+          <DevelopmentServerPort>51335</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>https://localhost:44325/</IISUrl>
+          <IISUrl>https://localhost:44358/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

@@ -11,12 +11,31 @@ namespace ERP.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Warehouse
     {
         public int id { get; set; }
-        public string type { get; set; }
+        [Required]
+        public string name { get; set; }
+        [Required]
         public string description { get; set; }
-        public Nullable<System.DateTime> activity_time { get; set; }
+        [Required]
+        public string address { get; set; }
+        [Required]
+        public Nullable<int> zip_code { get; set; }
+        [Required]
+        public string city { get; set; }
+        [Required]
+        public string country { get; set; }
+        [Required]
+        public string phone { get; set; }
+        [Required]
+        public Nullable<double> quantity { get; set; }
+        public Nullable<double> remaining_quantity { get; set; }
+        [Required]
+        public string status { get; set; }
+        public string date_added { get; set; }
+        public string date_updated { get; set; }
     }
 }

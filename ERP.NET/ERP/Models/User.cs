@@ -11,12 +11,14 @@ namespace ERP.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class User
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public User()
         {
+            this.Employees = new HashSet<Employee>();
             this.Finance_payment_histories = new HashSet<Finance_payment_histories>();
             this.Invoices = new HashSet<Invoice>();
             this.Leave_requests = new HashSet<Leave_requests>();
@@ -25,12 +27,17 @@ namespace ERP.Models
     
         public int id { get; set; }
         public string profile_pic { get; set; }
+        [Required]
         public string firstname { get; set; }
+        [Required]
         public string lastname { get; set; }
         public string username { get; set; }
         public Nullable<System.DateTime> dob { get; set; }
+        [Required]
         public string email { get; set; }
+        [Required]
         public string phone { get; set; }
+        [Required]
         public string address { get; set; }
         public string gender { get; set; }
         public string position { get; set; }
@@ -39,6 +46,8 @@ namespace ERP.Models
         public Nullable<int> organization_id { get; set; }
         public string user_status { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Employee> Employees { get; set; }
         public virtual Finance_import_histories Finance_import_histories { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Finance_payment_histories> Finance_payment_histories { get; set; }

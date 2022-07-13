@@ -39,8 +39,10 @@
         <MappingFragment StoreEntitySet="Customers">
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="email" ColumnName="email" />
           <ScalarProperty Name="phone" ColumnName="phone" />
           <ScalarProperty Name="delivery_point" ColumnName="delivery_point" />
+          <ScalarProperty Name="first_purchase" ColumnName="first_purchase" />
           <ScalarProperty Name="type" ColumnName="type" />
         </MappingFragment>
       </EntityTypeMapping>
@@ -49,6 +51,7 @@
       <EntityTypeMapping TypeName="ERPModel.Employee">
         <MappingFragment StoreEntitySet="Employees">
           <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="employee_id" ColumnName="employee_id" />
           <ScalarProperty Name="employee_name" ColumnName="employee_name" />
           <ScalarProperty Name="gender" ColumnName="gender" />
           <ScalarProperty Name="supervisor" ColumnName="supervisor" />
@@ -183,6 +186,7 @@
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="customer_id" ColumnName="customer_id" />
           <ScalarProperty Name="order_description" ColumnName="order_description" />
+          <ScalarProperty Name="status" ColumnName="status" />
           <ScalarProperty Name="order_made" ColumnName="order_made" />
           <ScalarProperty Name="total_amount" ColumnName="total_amount" />
           <ScalarProperty Name="delivered_on" ColumnName="delivered_on" />
@@ -282,9 +286,18 @@
       <EntityTypeMapping TypeName="ERPModel.Warehouse">
         <MappingFragment StoreEntitySet="Warehouses">
           <ScalarProperty Name="id" ColumnName="id" />
-          <ScalarProperty Name="type" ColumnName="type" />
+          <ScalarProperty Name="name" ColumnName="name" />
           <ScalarProperty Name="description" ColumnName="description" />
-          <ScalarProperty Name="activity_time" ColumnName="activity_time" />
+          <ScalarProperty Name="address" ColumnName="address" />
+          <ScalarProperty Name="zip_code" ColumnName="zip_code" />
+          <ScalarProperty Name="city" ColumnName="city" />
+          <ScalarProperty Name="country" ColumnName="country" />
+          <ScalarProperty Name="phone" ColumnName="phone" />
+          <ScalarProperty Name="quantity" ColumnName="quantity" />
+          <ScalarProperty Name="remaining_quantity" ColumnName="remaining_quantity" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="date_added" ColumnName="date_added" />
+          <ScalarProperty Name="date_updated" ColumnName="date_updated" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
