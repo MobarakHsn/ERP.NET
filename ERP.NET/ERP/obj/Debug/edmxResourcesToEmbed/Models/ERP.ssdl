@@ -36,8 +36,10 @@
     </Key>
     <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="name" Type="varchar" MaxLength="50" />
+    <Property Name="email" Type="varchar" MaxLength="50" />
     <Property Name="phone" Type="varchar" MaxLength="50" />
-    <Property Name="delivery_point" Type="varchar" MaxLength="50" />
+    <Property Name="delivery_point" Type="varchar" MaxLength="100" />
+    <Property Name="first_purchase" Type="date" />
     <Property Name="type" Type="varchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="Employees">
@@ -45,6 +47,7 @@
       <PropertyRef Name="id" />
     </Key>
     <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="employee_id" Type="int" />
     <Property Name="employee_name" Type="varchar" MaxLength="50" />
     <Property Name="gender" Type="varchar" MaxLength="50" />
     <Property Name="supervisor" Type="varchar" MaxLength="50" />
@@ -134,7 +137,7 @@
     <Key>
       <PropertyRef Name="id" />
     </Key>
-    <Property Name="id" Type="int" Nullable="false" />
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="type" Type="varchar" MaxLength="50" />
     <Property Name="request_description" Type="varchar" MaxLength="50" />
     <Property Name="start_time" Type="datetime" />
@@ -168,6 +171,7 @@
     <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="customer_id" Type="int" Nullable="false" />
     <Property Name="order_description" Type="varchar" MaxLength="1000" />
+    <Property Name="status" Type="varchar" MaxLength="50" />
     <Property Name="order_made" Type="datetime" />
     <Property Name="total_amount" Type="int" />
     <Property Name="delivered_on" Type="datetime" />
@@ -201,7 +205,7 @@
     <Property Name="product_name" Type="varchar" MaxLength="50" />
     <Property Name="status_sale" Type="varchar" MaxLength="50" />
     <Property Name="status_purchase" Type="varchar" MaxLength="50" />
-    <Property Name="product_description" Type="varchar" MaxLength="50" />
+    <Property Name="product_description" Type="varchar" MaxLength="500" />
     <Property Name="warehouse_name" Type="varchar" MaxLength="50" />
     <Property Name="stock" Type="float" />
     <Property Name="nature" Type="varchar" MaxLength="50" />
@@ -260,10 +264,31 @@
       <PropertyRef Name="id" />
     </Key>
     <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="type" Type="varchar" MaxLength="50" />
+    <Property Name="name" Type="varchar" MaxLength="50" />
     <Property Name="description" Type="varchar" MaxLength="500" />
-    <Property Name="activity_time" Type="datetime" />
+    <Property Name="address" Type="varchar" MaxLength="500" />
+    <Property Name="zip_code" Type="int" />
+    <Property Name="city" Type="varchar" MaxLength="50" />
+    <Property Name="country" Type="varchar" MaxLength="50" />
+    <Property Name="phone" Type="varchar" MaxLength="50" />
+    <Property Name="quantity" Type="float" />
+    <Property Name="remaining_quantity" Type="float" />
+    <Property Name="status" Type="varchar" MaxLength="50" />
+    <Property Name="date_added" Type="varchar" MaxLength="50" />
+    <Property Name="date_updated" Type="varchar" MaxLength="50" />
   </EntityType>
+  <Association Name="FK_Employees_Users">
+    <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+    <End Role="Employees" Type="Self.Employees" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Employees">
+        <PropertyRef Name="employee_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Finance_import_histories_Users">
     <End Role="Users" Type="Self.Users" Multiplicity="1" />
     <End Role="Finance_import_histories" Type="Self.Finance_import_histories" Multiplicity="0..1" />
@@ -360,6 +385,10 @@
     <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Warehouses" EntityType="Self.Warehouses" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Employees_Users" Association="Self.FK_Employees_Users">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Employees" EntitySet="Employees" />
+    </AssociationSet>
     <AssociationSet Name="FK_Finance_import_histories_Users" Association="Self.FK_Finance_import_histories_Users">
       <End Role="Users" EntitySet="Users" />
       <End Role="Finance_import_histories" EntitySet="Finance_import_histories" />

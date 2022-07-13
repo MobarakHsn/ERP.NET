@@ -9,24 +9,38 @@
 
 namespace ERP.Models
 {
+    using ERP.Form_Models;
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Product
     {
         public int id { get; set; }
+        [Required]
         public string product_name { get; set; }
+        [Required]
         public string status_sale { get; set; }
+        [Required]
         public string status_purchase { get; set; }
+        [Required]
         public string product_description { get; set; }
         public string warehouse_name { get; set; }
+        [Required]
         public Nullable<double> stock { get; set; }
+        [Required]
         public string nature { get; set; }
+        [Required]
         public string weight { get; set; }
+        [Required]
         public string weight_unit { get; set; }
+        [Required]
         public string dimention { get; set; }
+        [Required]
         public string dimention_unit { get; set; }
+        [Required]
         public Nullable<double> selling_price { get; set; }
+        [Required]
         public string tax { get; set; }
         public string product_image { get; set; }
         public string product_condition { get; set; }

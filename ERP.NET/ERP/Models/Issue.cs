@@ -11,11 +11,14 @@ namespace ERP.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Issue
     {
         public int id { get; set; }
+        [Required]
         public string issue_name { get; set; }
+        [Required]
         public string description { get; set; }
         public string issued_by { get; set; }
         public Nullable<System.DateTime> issue_time { get; set; }

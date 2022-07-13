@@ -22,8 +22,10 @@ namespace ERP.Models
     
         public int id { get; set; }
         public string name { get; set; }
+        public string email { get; set; }
         public string phone { get; set; }
         public string delivery_point { get; set; }
+        public Nullable<System.DateTime> first_purchase { get; set; }
         public string type { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

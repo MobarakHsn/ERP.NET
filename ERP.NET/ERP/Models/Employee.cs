@@ -15,6 +15,7 @@ namespace ERP.Models
     public partial class Employee
     {
         public int id { get; set; }
+        public Nullable<int> employee_id { get; set; }
         public string employee_name { get; set; }
         public string gender { get; set; }
         public string supervisor { get; set; }
@@ -26,5 +27,7 @@ namespace ERP.Models
         public Nullable<System.TimeSpan> end_time { get; set; }
         public Nullable<int> hours_worked { get; set; }
         public Nullable<System.DateTime> employement_start_date { get; set; }
+    
+        public virtual User User { get; set; }
     }
 }

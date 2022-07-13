@@ -11,13 +11,18 @@ namespace ERP.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Leave_requests
     {
         public int id { get; set; }
+        [Required]
         public string type { get; set; }
+        [Required]
         public string request_description { get; set; }
+        [Required]
         public Nullable<System.DateTime> start_time { get; set; }
+        [Required]
         public Nullable<System.DateTime> end_time { get; set; }
         public Nullable<System.DateTime> request_made { get; set; }
         public string status { get; set; }
