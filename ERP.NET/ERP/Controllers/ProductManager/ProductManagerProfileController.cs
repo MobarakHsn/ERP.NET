@@ -14,8 +14,8 @@ namespace ERP.Controllers.ProductManager
         [HttpGet]
         public ActionResult MyProfile()
         {
-            //var user=(from u in db.Users where u.id==(int)Session["id"] select u).SingleOrDefault();
-            var user = (from u in db.Users where u.id == 1 select u).SingleOrDefault();
+            int id = (int)Session["id"];
+            var user = (from u in db.Users where u.id == id select u).SingleOrDefault();
             var employee = (from em in db.Employees where em.employee_id==user.id select em).SingleOrDefault();
             ViewBag.user = user;
             ViewBag.employee = employee;
@@ -24,16 +24,16 @@ namespace ERP.Controllers.ProductManager
         [HttpGet]
         public ActionResult EditProfile()
         {
-            //var user=(from u in db.Users where u.id==(int)Session["id"] select u).SingleOrDefault();
-            var user = (from u in db.Users where u.id == 1 select u).SingleOrDefault();
+            int id = (int)Session["id"];
+            var user=(from u in db.Users where u.id==id select u).SingleOrDefault();
             ViewBag.user = user;
             return View(user);
         }
         [HttpPost]
         public ActionResult EditProfile(User us)
         {
-            //var user=(from u in db.Users where u.id==(int)Session["id"] select u).SingleOrDefault();
-            var user = (from u in db.Users where u.id == 1 select u).SingleOrDefault();
+            int id = (int)Session["id"];
+            var user=(from u in db.Users where u.id==id select u).SingleOrDefault();
             ViewBag.user = user;
             if(ModelState.IsValid)
             {
@@ -46,6 +46,8 @@ namespace ERP.Controllers.ProductManager
                 user.lastname = us.lastname;
                 user.phone = us.phone;
                 user.email = us.email;
+                Session["name"] = user.firstname + " " + user.lastname;
+                Session["email"] = user.email;
                 db.SaveChanges();
                 TempData["msgs"] = "Profile Updated!";
                 return View(us);

@@ -1,4 +1,5 @@
-﻿using ERP.Form_Models;
+﻿using ERP.Auth;
+using ERP.Form_Models;
 using ERP.Models;
 using Newtonsoft.Json;
 using System;
@@ -9,6 +10,7 @@ using System.Web.Mvc;
 
 namespace ERP.Controllers.ProductManager
 {
+    [ProductManagerLogged]
     public class ProductVisualizationController : Controller
     {
         // GET: ProductVisualization

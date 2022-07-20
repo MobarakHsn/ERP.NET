@@ -1,4 +1,5 @@
-﻿using ERP.Models;
+﻿using ERP.Auth;
+using ERP.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,6 +8,7 @@ using System.Web.Mvc;
 
 namespace ERP.Controllers.ProductManager
 {
+    [ProductManagerLogged]
     public class ProductLeaveController : Controller
     {
         // GET: ProductLeave
@@ -25,8 +27,8 @@ namespace ERP.Controllers.ProductManager
                     TempData["msgd"] = "End time must be greater than start time!";
                     return View(lreq);
                 }
-                //lreq.employee_id = (int)Session["e_id"];
-                lreq.employee_id = 1;
+                int id = (int)Session["id"];
+                lreq.employee_id = id;
                 lreq.request_made = DateTime.Now;
                 lreq.status = "Pending";
                 var db = new ERPEntities();
@@ -41,8 +43,8 @@ namespace ERP.Controllers.ProductManager
         public ActionResult MyLeave()
         {
             var db = new ERPEntities();
-            //var myList = (from list in db.Leave_requests where list.employee_id == (int)Session["e_id"] select list).ToArray();
-            var myList = (from list in db.Leave_requests where list.employee_id==1 select list).ToArray();
+            int id = (int)Session["id"];
+            var myList = (from list in db.Leave_requests where list.employee_id == id select list).ToArray();
             ViewBag.myList = myList;
             return View();
         }

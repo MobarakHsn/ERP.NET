@@ -1,4 +1,5 @@
-﻿using ERP.Models;
+﻿using ERP.Auth;
+using ERP.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,6 +8,7 @@ using System.Web.Mvc;
 
 namespace ERP.Controllers.ProductManager
 {
+    [ProductManagerLogged]
     public class ProductIssueController : Controller
     {
         // GET: ProductIssue
@@ -20,8 +22,8 @@ namespace ERP.Controllers.ProductManager
         {
             if(ModelState.IsValid)
             {
-                //isu.issued_by = Session["uname"].ToString();
-                isu.issued_by = "mobarak";
+                string username = Session["username"].ToString();
+                isu.issued_by = username;
                 isu.issue_time = DateTime.Now;
                 isu.status = "Pending";
                 var db = new ERPEntities();
@@ -35,8 +37,8 @@ namespace ERP.Controllers.ProductManager
         public ActionResult MyIssues()
         {
             var db = new ERPEntities();
-            //var myList = (from list in db.Issues where list.issued_by.Equals(Session["uname"]) select list).ToArray();
-            var myList = (from list in db.Issues where list.issued_by.Equals("mobarak") select list).ToArray();
+            string username = Session["username"].ToString();
+            var myList = (from list in db.Issues where list.issued_by.Equals(username) select list).ToArray();
             ViewBag.MyIssues = myList;
             return View();
         }
