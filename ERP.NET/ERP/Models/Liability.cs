@@ -11,12 +11,15 @@ namespace ERP.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Liability
     {
         public int id { get; set; }
+        [Required]
         public Nullable<double> amount { get; set; }
         public Nullable<int> manager_id { get; set; }
+        [Required]
         public string type { get; set; }
     
         public virtual User User { get; set; }
