@@ -47,8 +47,16 @@ namespace ERP.Controllers.Common
                 Session["userType"] = user.position;
                 Session["id"] = user.id;
                 Session["name"] = user.firstname + " " + user.lastname;
+
+                if (user.position == "HR")
+                {
+                    Session["type"] = "HR";
+                    return RedirectToAction("Home", "HR_Basic");
+                }
+
                 if (user.position == "Finance Manager")
                 {
+                    Session["type"] = "Finance Manager";
                     return RedirectToAction("Home", "FinanceManager_basic");
                 }
 

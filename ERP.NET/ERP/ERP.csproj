@@ -129,9 +129,21 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Auth\FinanceManagerLogged.cs" />
+    <Compile Include="Auth\HrLogged.cs" />
     <Compile Include="Auth\ProductManagerLogged.cs" />
     <Compile Include="Controllers\Common\usersActivityController.cs" />
+    <Compile Include="Controllers\Finance Manager\FinanceManager_basicController.cs" />
+    <Compile Include="Controllers\Finance Manager\FinanceManager_BudgetingController.cs" />
+    <Compile Include="Controllers\Finance Manager\FinanceManager_InvoiceController.cs" />
+    <Compile Include="Controllers\Finance Manager\FinanceManager_ProfessionalController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\HR\HR_BasicController.cs" />
+    <Compile Include="Controllers\HR\HR_EmployeeController.cs" />
+    <Compile Include="Controllers\HR\HR_ExpenseController.cs" />
+    <Compile Include="Controllers\HR\HR_LeaveRequestController.cs" />
+    <Compile Include="Controllers\HR\HR_ProfileController.cs" />
+    <Compile Include="Controllers\HR\HR_UserController.cs" />
     <Compile Include="Controllers\ProductManager\ProductCRUDController.cs" />
     <Compile Include="Controllers\ProductManager\ProductHomeController.cs" />
     <Compile Include="Controllers\ProductManager\ProductIssueController.cs" />
@@ -141,6 +153,7 @@
     <Compile Include="Controllers\ProductManager\ProductTransferController.cs" />
     <Compile Include="Controllers\ProductManager\ProductVisualizationController.cs" />
     <Compile Include="Controllers\ProductManager\WareHouseCRUDController.cs" />
+    <Compile Include="Controllers\Sales_Manager\sales_Controller.cs" />
     <Compile Include="Form Models\Transfer.cs" />
     <Compile Include="Form Models\VisProduct.cs" />
     <Compile Include="Global.asax.cs">
@@ -179,9 +192,11 @@
     <Compile Include="Models\Expens.cs">
       <DependentUpon>ERP.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\FinanceManager_Email.cs" />
     <Compile Include="Models\Finance_Activities.cs">
       <DependentUpon>ERP.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Finance_changeinfo.cs" />
     <Compile Include="Models\Finance_import_histories.cs">
       <DependentUpon>ERP.tt</DependentUpon>
     </Compile>
@@ -191,6 +206,13 @@
     <Compile Include="Models\Hr_Activites.cs">
       <DependentUpon>ERP.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\HR_CreateEmployeeGroup.cs" />
+    <Compile Include="Models\HR_EmployeeCreate.cs" />
+    <Compile Include="Models\HR_ExpenseReport.cs" />
+    <Compile Include="Models\HR_LeaveRequest.cs" />
+    <Compile Include="Models\HR_ProfileEdit.cs" />
+    <Compile Include="Models\HR_SendEmail.cs" />
+    <Compile Include="Models\HR_UserCreate.cs" />
     <Compile Include="Models\Invoice.cs">
       <DependentUpon>ERP.tt</DependentUpon>
     </Compile>
@@ -222,6 +244,7 @@
     <Compile Include="Models\Sales_Activities.cs">
       <DependentUpon>ERP.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\sales_changeInfo.cs" />
     <Compile Include="Models\sysdiagram.cs">
       <DependentUpon>ERP.tt</DependentUpon>
     </Compile>
@@ -299,11 +322,70 @@
     <Content Include="Views\ProductManagerProfile\EditProfile.cshtml" />
     <Content Include="Views\ProductVisualization\PieChart.cshtml" />
     <Content Include="Views\usersActivity\Login.cshtml" />
+    <Content Include="Views\FinanceManager_basic\ChangePassword.cshtml" />
+    <Content Include="Views\FinanceManager_basic\Home.cshtml" />
+    <Content Include="Views\FinanceManager_basic\LeaveApplication.cshtml" />
+    <Content Include="Views\FinanceManager_basic\LeaveApply.cshtml" />
+    <Content Include="Views\FinanceManager_basic\LeaveRequests.cshtml" />
+    <Content Include="Views\FinanceManager_basic\ProfileInfo.cshtml" />
+    <Content Include="Views\FinanceManager_basic\UpdateInformantion.cshtml" />
+    <Content Include="Views\FinanceManager_Budgeting\AddBankAccount.cshtml" />
+    <Content Include="Views\FinanceManager_Budgeting\Asset.cshtml" />
+    <Content Include="Views\FinanceManager_Budgeting\ConnectedBanks.cshtml" />
+    <Content Include="Views\FinanceManager_Budgeting\Expenses.cshtml" />
+    <Content Include="Views\FinanceManager_Budgeting\Index.cshtml" />
+    <Content Include="Views\FinanceManager_Budgeting\Liability.cshtml" />
+    <Content Include="Views\FinanceManager_Invoice\CustomerInvoiceList.cshtml" />
+    <Content Include="Views\FinanceManager_Invoice\Index.cshtml" />
+    <Content Include="Views\FinanceManager_Invoice\NewCustomerInvoice.cshtml" />
+    <Content Include="Views\FinanceManager_Invoice\NewSupplierInvoice.cshtml" />
+    <Content Include="Views\FinanceManager_Invoice\SupplierInvoiceList.cshtml" />
+    <Content Include="Views\FinanceManager_Professional\CustomerPayments.cshtml" />
+    <Content Include="Views\FinanceManager_Professional\HistoryPayment.cshtml" />
+    <Content Include="Views\FinanceManager_Professional\Payments.cshtml" />
+    <Content Include="Views\FinanceManager_Professional\PaymentsChart.cshtml" />
+    <Content Include="Views\FinanceManager_Professional\SendEmail.cshtml" />
+    <Content Include="Views\FinanceManager_Professional\SupplierPayments.cshtml" />
+    <Content Include="Views\HR_Basic\Home.cshtml" />
+    <Content Include="Views\HR_Basic\SendEmail.cshtml" />
+    <Content Include="Views\HR_Employee\CreateEmployeeGroup.cshtml" />
+    <Content Include="Views\HR_Employee\EmployeeCreate.cshtml" />
+    <Content Include="Views\HR_Employee\EmployeeDelete.cshtml" />
+    <Content Include="Views\HR_Employee\EmployeeList.cshtml" />
+    <Content Include="Views\HR_Employee\EmployeeSchedule.cshtml" />
+    <Content Include="Views\HR_Employee\EmployeeUpdate.cshtml" />
+    <Content Include="Views\HR_Expense\ExpenseDelete.cshtml" />
+    <Content Include="Views\HR_Expense\ExpenseList.cshtml" />
+    <Content Include="Views\HR_Expense\ExpenseReport.cshtml" />
+    <Content Include="Views\HR_Expense\ExpenseStatistic.cshtml" />
+    <Content Include="Views\HR_Expense\ExpenseUpdate.cshtml" />
+    <Content Include="Views\HR_LeaveRequest\LeaveRequest.cshtml" />
+    <Content Include="Views\HR_LeaveRequest\LeaveRequestApprove.cshtml" />
+    <Content Include="Views\HR_LeaveRequest\LeaveRequestList.cshtml" />
+    <Content Include="Views\HR_LeaveRequest\LeaveRequestReject.cshtml" />
+    <Content Include="Views\HR_LeaveRequest\LeaveRequestVerify.cshtml" />
+    <Content Include="Views\HR_Profile\PasswordChange.cshtml" />
+    <Content Include="Views\HR_Profile\ProfileDetails.cshtml" />
+    <Content Include="Views\HR_Profile\ProfileEdit.cshtml" />
+    <Content Include="Views\HR_User\UserCreate.cshtml" />
+    <Content Include="Views\HR_User\UserDelete.cshtml" />
+    <Content Include="Views\HR_User\UserList.cshtml" />
+    <Content Include="Views\HR_User\UserUpdate.cshtml" />
+    <Content Include="Views\sales_\changePassword.cshtml" />
+    <Content Include="Views\sales_\createCustomer.cshtml" />
+    <Content Include="Views\sales_\createOrder.cshtml" />
+    <Content Include="Views\sales_\customerEdit.cshtml" />
+    <Content Include="Views\sales_\Index.cshtml" />
+    <Content Include="Views\sales_\leaveRequest.cshtml" />
+    <Content Include="Views\sales_\loginSales.cshtml" />
+    <Content Include="Views\sales_\orderEdit.cshtml" />
+    <Content Include="Views\sales_\profile.cshtml" />
+    <Content Include="Views\sales_\updateProfile.cshtml" />
+    <Content Include="Views\sales_\viewCustomer.cshtml" />
+    <Content Include="Views\sales_\viewOrder.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Controllers\Finance Manager\" />
-    <Folder Include="Views\Login\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
