@@ -129,6 +129,8 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Auth\ProductManagerLogged.cs" />
+    <Compile Include="Controllers\Common\usersActivityController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProductManager\ProductCRUDController.cs" />
     <Compile Include="Controllers\ProductManager\ProductHomeController.cs" />
@@ -201,6 +203,7 @@
     <Compile Include="Models\Liability.cs">
       <DependentUpon>ERP.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Login.cs" />
     <Compile Include="Models\Order.cs">
       <DependentUpon>ERP.tt</DependentUpon>
     </Compile>
@@ -295,9 +298,12 @@
     <Content Include="Views\ProductManagerProfile\MyProfile.cshtml" />
     <Content Include="Views\ProductManagerProfile\EditProfile.cshtml" />
     <Content Include="Views\ProductVisualization\PieChart.cshtml" />
+    <Content Include="Views\usersActivity\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Controllers\Finance Manager\" />
+    <Folder Include="Views\Login\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

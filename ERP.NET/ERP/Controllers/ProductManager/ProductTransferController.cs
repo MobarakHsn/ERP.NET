@@ -1,4 +1,5 @@
-﻿using ERP.Form_Models;
+﻿using ERP.Auth;
+using ERP.Form_Models;
 using ERP.Models;
 using System;
 using System.Collections.Generic;
@@ -8,6 +9,7 @@ using System.Web.Mvc;
 
 namespace ERP.Controllers.ProductManager
 {
+    [ProductManagerLogged]
     public class ProductTransferController : Controller
     {
         // GET: ProductTransfer
