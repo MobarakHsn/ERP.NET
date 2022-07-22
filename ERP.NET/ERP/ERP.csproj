@@ -383,6 +383,7 @@
     <Content Include="Views\sales_\updateProfile.cshtml" />
     <Content Include="Views\sales_\viewCustomer.cshtml" />
     <Content Include="Views\sales_\viewOrder.cshtml" />
+    <Content Include="Views\sales_\sendEmail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
