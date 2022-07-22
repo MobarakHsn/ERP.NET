@@ -2,6 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
@@ -263,6 +265,33 @@ namespace ERP.Controllers.Sales_Manager
         {
             Session.RemoveAll();
             return RedirectToAction("loginSales");
+        }
+        public ActionResult sendEmail()
+        {
+            var Email = "student.38040@gmail.com";
+            var To = "shahidinfo.45@gmail.com";
+            var Body = "This is test email";
+            var Subject = "First mail";
+            var Password = "dhyamycsibzwnbwf";
+            using (MailMessage mm = new MailMessage(Email, To))
+            {
+                mm.Subject = Subject;
+                mm.Body = Body;
+                mm.IsBodyHtml = false;
+                using (SmtpClient smtp = new SmtpClient())
+                {
+                    smtp.Host = "smtp.gmail.com";
+                    smtp.EnableSsl = true;
+                    NetworkCredential cred = new NetworkCredential(Email,Password);
+                    smtp.UseDefaultCredentials = true;
+                    smtp.Credentials = cred;
+                    smtp.Port = 587;
+                    smtp.Send(mm);
+                    TempData["msg"] = "Email sent";
+                }
+            }
+
+            return View();
         }
     }
 }

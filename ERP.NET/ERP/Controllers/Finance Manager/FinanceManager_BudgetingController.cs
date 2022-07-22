@@ -99,7 +99,7 @@ namespace ERP.Controllers.Finance_Manager
                 }
                 var bank = (from e in db.Banks
                             where e.manager_id == id
-                            select e).SingleOrDefault();
+                            select e).FirstOrDefault();
 
                 if (bank.balance < a.amount)
                 {
@@ -141,7 +141,7 @@ namespace ERP.Controllers.Finance_Manager
                 }
                 var bank = (from e in db.Banks
                             where e.manager_id == id
-                            select e).SingleOrDefault();
+                            select e).FirstOrDefault();
 
                 if (bank.balance < a.amount)
                 {
@@ -183,7 +183,7 @@ namespace ERP.Controllers.Finance_Manager
                 }
                 var bank = (from e in db.Banks
                             where e.manager_id == id
-                            select e).SingleOrDefault();
+                            select e).FirstOrDefault();
 
 
                 bank.balance += a.amount;

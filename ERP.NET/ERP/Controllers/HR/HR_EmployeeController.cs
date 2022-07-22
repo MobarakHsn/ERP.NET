@@ -14,7 +14,9 @@ namespace ERP.Controllers.HR
         // GET: HR_Employee
         [HttpGet]
         public ActionResult EmployeeCreate()
+            
         {
+            
             return View();
         }
         [HttpPost]
